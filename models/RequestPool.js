@@ -17,6 +17,18 @@ const RequestPoolSchema = new mongoose.Schema({
     ref: "employee",
     required: true,
   },
+  requester: {
+    type: String,
+    required: true,
+  },
+  reviewer: {
+    type: String,
+    required: true,
+  },
+  candidate: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now(),

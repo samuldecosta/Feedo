@@ -61,6 +61,9 @@ router.post(
           id: employee.id,
         },
       };
+      const employeeData = await await Employee.findOne({ email }).select(
+        "-password"
+      );
       //Send JWT Token
       jwt.sign(
         payLoad,
@@ -70,7 +73,7 @@ router.post(
           if (err) {
             throw err;
           }
-          res.send({ token });
+          res.send({ token, employee: employeeData });
         }
       );
     } catch (err) {

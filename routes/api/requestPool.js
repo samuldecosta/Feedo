@@ -55,8 +55,18 @@ router.post(
     const {
       body: { reqby, reqfrom, reqfor },
     } = req;
+    const reviewer = await Employee.findById(reqfrom);
+    const requester = await Employee.findById(reqby);
+    const candidate = await Employee.findById(reqfor);
     try {
-      newFeedbackRequest = new RequestPool({ reqby, reqfrom, reqfor });
+      newFeedbackRequest = new RequestPool({
+        reqby,
+        reqfrom,
+        reqfor,
+        reviewer: reviewer.name,
+        requester: requester.name,
+        candidate: candidate.name,
+      });
       await newFeedbackRequest.save();
       const openRequests = await RequestPool.find();
       res.json({ success: true, data: openRequests });

@@ -182,9 +182,9 @@ router.delete("/", auth, async (req, res) => {
     if (!isAdmin) {
       return res.status(400).json({ msg: "Unauthorised Access" });
     }
-    Employee.findOneAndRemove({ _id: employeeId }).then(() =>
-      res.json({ success: true })
-    );
+    await Employee.findOneAndRemove({ _id: employeeId });
+    const updatedEmployees = await Employee.find().select("-password");
+    return res.json({ success: true, employees: updatedEmployees });
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server Error");
