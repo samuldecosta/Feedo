@@ -19,26 +19,68 @@ router.post(
       res.status(400).json({ errors: errors.array() });
     }
     const {
-      body: { reqId, employee, summary, overAllPerformance = 0 },
+      body: {
+        reqId = "",
+        employee,
+        feedbackId,
+        summary,
+        overAllPerformance = 0,
+      },
     } = req;
-    const updatedFeedbackObject = new Feedback({
-      request: reqId,
-      reviewer: req.employee.id,
-      employee: employee,
-      summary,
-      level: overAllPerformance,
-    });
+    const submitter = await Employee.findById(req.employee.id);
+    const isAdmin = submitter.isAdmin;
+    const modelObject = reqId
+      ? {
+          reviewer: req.employee.id,
+          employee: employee,
+          summary,
+          reviewerName: submitter.name,
+          level: overAllPerformance,
+          request: reqId,
+        }
+      : {
+          reviewer: req.employee.id,
+          employee: employee,
+          summary,
+          reviewerName: submitter.name,
+          level: overAllPerformance,
+        };
+    const updatedFeedbackObject = new Feedback(modelObject);
+
     try {
       //Check if request exist in request pool
-      const selectedRequest = reqId && (await RequestPool.findById(reqId));
-      if (selectedRequest) {
-        selectedRequest.completed = true;
-        await RequestPool.findByIdAndUpdate(reqId, selectedRequest, {
-          new: true,
-        });
+      if (reqId) {
+        const selectedRequest = await RequestPool.findById(reqId);
+        if (selectedRequest) {
+          selectedRequest.completed = true;
+          await RequestPool.findByIdAndUpdate(reqId, selectedRequest, {
+            new: true,
+          });
+        }
       }
-      await updatedFeedbackObject.save();
-      return res.json({ success: true });
+      //check if feedback id is available if availabel then update and return
+      if (feedbackId) {
+        const selectedFeedback = await Feedback.findById(feedbackId);
+        selectedFeedback.summary = summary;
+        selectedFeedback.reviewerName = submitter.name;
+        selectedFeedback.reviewer = req.employee.id;
+        const testupdate = await Feedback.findByIdAndUpdate(
+          feedbackId,
+          selectedFeedback,
+          {
+            new: true,
+          }
+        );
+      } else {
+        // if new feedback then save
+        await updatedFeedbackObject.save();
+      }
+      const data = await Feedback.find({ employee: employee });
+      if (isAdmin) {
+        return res.json({ success: true, data });
+      } else {
+        return res.json({ success: true, data: [] });
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -76,17 +118,37 @@ router.put("/", auth, async (req, res) => {
 //@access Private
 router.delete("/", auth, async (req, res) => {
   try {
-    const { requestId } = req.body;
+    const { id } = req.body;
     const employee = await Employee.findById(req.employee.id);
     const isAdmin = employee && employee.isAdmin;
     if (!isAdmin) {
       return res.status(400).json({ msg: "Unauthorised Access" });
     }
-    Feedback.findOneAndRemove({ _id: requestId });
+    await Feedback.findOneAndRemove({ _id: id });
     return res.json({ success: true });
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
+
+//@route  GET api/feedback/:empId
+//@desc   GET feeds for specific empId
+//@access Private
+
+router.get("/:empId", auth, async (req, res) => {
+  try {
+    const submitter = await Employee.findById(req.employee.id);
+    const isAdmin = submitter.isAdmin;
+    if (!isAdmin) {
+      return res.status(400).json({ msg: "Not authorise to make this call" });
+    }
+    const feedbackList = await Feedback.find({ employee: req.params.empId });
+    return res.json({ success: true, data: feedbackList });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

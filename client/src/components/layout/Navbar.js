@@ -2,42 +2,46 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logout, loadUser } from "../../actions/auth";
+import { logout } from "../../actions/auth";
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
   const authLink = (
-    <ul>
+    <Fragment>
+      {employee && employee.isAdmin && (
+        <Fragment>
+          <li>
+            <Link to="/register">Add Employee</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        </Fragment>
+      )}
       <li>
         <a href="#!" onClick={logout}>
           <i className="fa fa-sign-out-alt"></i>
           <span className="hide-sm">Logout</span>
         </a>
       </li>
-    </ul>
+    </Fragment>
   );
   const guestLink = (
-    <ul>
-      <li>
-        <Link to="/profiles">Developers</Link>
-      </li>
-      <li>
-        <Link to="/register">Register</Link>
-      </li>
+    <Fragment>
       <li>
         <Link to="/login">Login</Link>
       </li>
-    </ul>
+    </Fragment>
   );
   return (
     <nav className="navbar bg-dark">
-      <h1>
-        <Link to="/">
-          <i className="fas fa-code"></i> DevConnector
-        </Link>
-      </h1>
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLink : guestLink}</Fragment>
-      )}
+      <ul>
+        <li className="root">
+          <Link to="/">Feedo</Link>
+        </li>
+        {!loading && (
+          <Fragment>{isAuthenticated ? authLink : guestLink}</Fragment>
+        )}
+      </ul>
     </nav>
   );
 };

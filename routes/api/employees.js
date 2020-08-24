@@ -101,12 +101,12 @@ router.post(
   }
 );
 
-//@route  UPDATE api/employees
+//@route  UPDATE api/employees/update
 //@desc   Update Employee
 //@access private
 
-router.put(
-  "/",
+router.post(
+  "/update",
   [
     auth,
     [
@@ -162,7 +162,7 @@ router.put(
         { email },
         { $set: employee },
         { new: true }
-      );
+      ).select("-password");
       res.json({ success: true, data: updatedEmployee });
     } catch (err) {
       console.error(err.message);

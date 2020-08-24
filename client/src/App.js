@@ -10,6 +10,8 @@ import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/dashboard";
 import Register from "./components/auth/Register";
+import UpdateEmployee from "./components/auth/UpdateEmployee";
+import FeedBacks from "./components/feedback";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import Alert from "./components/layout/Alert";
 //redux
@@ -41,6 +43,8 @@ const App = () => {
                 <Route exact path="/login" component={Login} />
                 <PrivateRoute exact path="/register" component={Register} />
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/update" component={UpdateEmployee} />
+                <PrivateRoute exact path="/feedback" component={FeedBacks} />
               </Switch>
             </section>
           </Fragment>

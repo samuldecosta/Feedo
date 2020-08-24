@@ -11,21 +11,20 @@ const Dashboard = ({
   getEmployeesList,
   getFeedbackRequests,
   employeesList,
-  auth: {
-    employee: { isAdmin },
-  },
+  auth: { employee },
 }) => {
   useEffect(() => {
-    if (isAdmin) {
+    if (employee && employee.isAdmin) {
       getEmployeesList();
     }
     getFeedbackRequests();
   }, []);
   return (
     <div className="dashboard-wrapper">
-      {employeesList && employeesList.length > 0 && (
-        <EmployeeList employees={employeesList} />
-      )}
+      {employee &&
+        employee.isAdmin &&
+        employeesList &&
+        employeesList.length > 0 && <EmployeeList employees={employeesList} />}
     </div>
   );
 };

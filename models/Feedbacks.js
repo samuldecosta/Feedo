@@ -5,6 +5,7 @@ const FeedbackSchema = new mongoose.Schema({
   request: {
     type: Schema.Types.ObjectId,
     ref: "requestpool",
+    required: false,
   },
   reviewer: {
     type: Schema.Types.ObjectId,
@@ -21,6 +22,10 @@ const FeedbackSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now(),
+  },
+  reviewerName: {
+    type: String,
+    required: true,
   },
   level: {
     type: Number,

@@ -22,6 +22,11 @@ export const register = ({
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   const body = JSON.stringify({
     name,
     password,
@@ -31,7 +36,7 @@ export const register = ({
     domain,
   });
   try {
-    await axios.post("api/employees", body);
+    await axios.post("api/employees", body, config);
     dispatch(setAlert(`Employee Registeration success`, "success"));
   } catch (err) {
     const {
@@ -46,6 +51,7 @@ export const register = ({
   }
 };
 
+//load current logged in user
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);

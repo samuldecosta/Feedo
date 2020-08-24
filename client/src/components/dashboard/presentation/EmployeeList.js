@@ -1,46 +1,47 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Image from "../../atoms/Image";
 import withStyles from "../../../lib/withStyles";
 import styles from "./EmployeeList.style";
 import Button from "../../atoms/Button";
-import { connect } from "react-redux";
-import { removeEmployee } from "../../../actions/employees";
+import {
+  removeEmployee,
+  setUserForUpdate,
+  setEmpForFeedback,
+} from "../../../actions/employees";
+import EmployeeCard from "../../molecules/EmployeeCard";
 
-function EmployeeList({ employees, className, onClick, removeEmployee }) {
+function EmployeeList({
+  employees,
+  className,
+  removeEmployee,
+  setUserForUpdate,
+  updateEmpId,
+  setEmpForFeedback,
+  feedbackForEmp,
+}) {
+  //redirect if have updateEmpId
+  if (updateEmpId) {
+    return <Redirect to="/update" />;
+  }
+  //redirect if have updateEmpId
+  if (feedbackForEmp && feedbackForEmp._id) {
+    return <Redirect to="/feedback" />;
+  }
   return (
     <div className={className}>
       {employees.map((employee) => {
-        const { name, avatar, designation, domain, bio, _id } = employee;
         return (
-          <div className={`employee-card`} onClick={onClick} key={`emp-${_id}`}>
-            <div className="details">
-              <Image
-                src={avatar}
-                placeholderSrc={avatar}
-                alt={`employee-${name}`}
-                className="emp-image"
-              />
-              <div className="emp-name">{name}</div>
-              <div className="emp-desination">
-                {designation}
-                <span className="domain">{domain}</span>
-              </div>
-            </div>
-            <div className="emp-bio">
-              <label>Bio:</label>
-              <p>{bio}</p>
-              <div className="action-buttons">
-                <Button className="btn btn-primary">Edit Info</Button>
-                <Button
-                  className="btn btn-primary"
-                  onClick={() => removeEmployee(_id)}
-                >
-                  Remove Employee
-                </Button>
-              </div>
-            </div>
-          </div>
+          <EmployeeCard
+            key={employee._id}
+            employeeData={employee}
+            isStaticMode={false}
+            setEmpForFeedback={setEmpForFeedback}
+            setUserForUpdate={setUserForUpdate}
+            removeEmployee={removeEmployee}
+          />
         );
       })}
     </div>
@@ -50,10 +51,19 @@ function EmployeeList({ employees, className, onClick, removeEmployee }) {
 EmployeeList.propTypes = {
   employees: PropTypes.array.isRequired,
   className: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
   removeEmployee: PropTypes.func.isRequired,
+  setUserForUpdate: PropTypes.func.isRequired,
+  updateEmpId: PropTypes.string,
+  feedbackForEmp: PropTypes.object,
+  setEmpForFeedback: PropTypes.func.isRequired,
 };
 
-export default connect(null, { removeEmployee })(
-  withStyles(EmployeeList, styles)
-);
+const mapStateToprops = (state) => ({
+  updateEmpId: state.employees.updateEmpId,
+  feedbackForEmp: state.employees.feedbackForEmp,
+});
+export default connect(mapStateToprops, {
+  removeEmployee,
+  setUserForUpdate,
+  setEmpForFeedback,
+})(withStyles(EmployeeList, styles));

@@ -1,1 +1,1 @@
-export { default } from "./contaier/Dashboard";
+export { default } from "./container/Dashboard";

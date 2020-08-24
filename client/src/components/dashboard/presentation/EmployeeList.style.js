@@ -19,26 +19,39 @@ const EmployeeListStyles = css`
   }
   .emp-name {
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .emp-image {
     max-width: 100px;
   }
   .emp-desination {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .domain {
     padding: 0 10px;
     font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
+  img {
+    width: auto;
+  }
   .details {
     width: 30%;
     display: inline-block;
   }
   .emp-bio {
-    position: absolute;
     width: 70%;
     display: inline-block;
     margin-top: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
