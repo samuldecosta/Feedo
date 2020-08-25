@@ -9,6 +9,7 @@ import {
   LOGOUT,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { host } from "../config";
 
 //Register Employee
 export const register = ({
@@ -36,7 +37,7 @@ export const register = ({
     domain,
   });
   try {
-    await axios.post("api/employees", body, config);
+    await axios.post(`${host}api/employees`, body, config);
     dispatch(setAlert(`Employee Registeration success`, "success"));
   } catch (err) {
     const {
@@ -57,7 +58,7 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get("api/auth");
+    const res = await axios.get(`${host}api/auth`);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -81,7 +82,7 @@ export const login = (email, password) => async (dispatch) => {
     email,
   });
   try {
-    const res = await axios.post("api/auth", body, config);
+    const res = await axios.post(`${host}api/auth`, body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,

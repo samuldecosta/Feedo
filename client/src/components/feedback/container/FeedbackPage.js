@@ -13,19 +13,20 @@ import FeedbackForm from "../../molecules/FeedbackForm";
 import { setEmpForFeedback } from "../../../actions/employees";
 
 function FeedbackPage({
-  employee,
+  employees,
   className,
   feedbackList,
   getFeedbackList,
   submitFeedback,
   removeFeedback,
-  setEmpForFeedback,
+  match: {
+    params: { empId },
+  },
 }) {
   useEffect(() => {
-    const { _id } = employee;
-    getFeedbackList(_id);
-    return () => setEmpForFeedback("");
+    getFeedbackList(empId);
   }, []);
+  const employee = employees.find((emp) => emp._id === empId);
   return (
     <div className={`feedback-wrapper ${className}`}>
       {employee && (
@@ -35,7 +36,7 @@ function FeedbackPage({
         <FeedbackForm
           submitFeedback={submitFeedback}
           removeFeedback={removeFeedback}
-          employeeId={employee._id}
+          employeeId={empId}
         />
       )}
       {feedbackList.map((feedback) => (
@@ -43,7 +44,7 @@ function FeedbackPage({
           key={feedback._id}
           storedFeedback={feedback}
           submitFeedback={submitFeedback}
-          employeeId={employee._id}
+          employeeId={empId}
           removeFeedback={removeFeedback}
         />
       ))}
@@ -56,11 +57,10 @@ FeedbackPage.propTypes = {
   getFeedbackList: PropTypes.func.isRequired,
   submitFeedback: PropTypes.func.isRequired,
   removeFeedback: PropTypes.func.isRequired,
-  setEmpForFeedback: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  employee: state.employees.feedbackForEmp,
+  employees: state.employees.employeesList,
   feedbackList: state.feedbacks.feedbackList,
 });
 
@@ -68,5 +68,4 @@ export default connect(mapStateToProps, {
   getFeedbackList,
   submitFeedback,
   removeFeedback,
-  setEmpForFeedback,
 })(withStyles(FeedbackPage, styles));

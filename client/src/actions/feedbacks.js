@@ -4,9 +4,9 @@ import {
   SAVE_FEEDBACK_REQUESTS,
   SAVE_FEEDBACK_LIST,
   REMOVE_FEEDBACK,
-  UPDATE_FEEDBACK,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { host } from "../config";
 
 // fetch all feedback request List
 export const getFeedbackRequests = () => async (dispatch) => {
@@ -14,7 +14,7 @@ export const getFeedbackRequests = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get("api/feedbackrequests");
+    const res = await axios.get(`${host}api/feedbackrequests`);
     dispatch({
       type: SAVE_FEEDBACK_REQUESTS,
       payload: res.data,
@@ -39,7 +39,7 @@ export const requestFeedBack = ({ reqby, reqfrom, reqfor }) => async (
   }
   const body = JSON.stringify({ reqby, reqfrom, reqfor });
   try {
-    const res = await axios.post("api/feedbackrequests", body);
+    const res = await axios.post(`${host}api/feedbackrequests`, body);
     if (res.data.success) {
       dispatch(setAlert("Feedback request generated", "success"));
     }
@@ -60,7 +60,7 @@ export const getFeedbackList = (empId) => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get(`api/feedback/${empId}`);
+    const res = await axios.get(`${host}api/feedback/${empId}`);
     dispatch({
       type: SAVE_FEEDBACK_LIST,
       payload: res.data,
@@ -95,7 +95,7 @@ export const submitFeedback = (
     overAllPerformance,
   });
   try {
-    const res = await axios.post(`api/feedback`, body);
+    const res = await axios.post(`${host}api/feedback`, body);
     dispatch({
       type: SAVE_FEEDBACK_LIST,
       payload: res.data,
@@ -122,7 +122,7 @@ export const removeFeedback = (id) => async (dispatch) => {
   try {
     const res = await axios({
       method: "DELETE",
-      url: "api/feedback",
+      url: `${host}api/feedback`,
       data: body,
       headers: { "Content-Type": "application/json" },
     });

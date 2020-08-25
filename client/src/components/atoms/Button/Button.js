@@ -27,7 +27,7 @@ const Button = ({
 Button.defaultProps = {
   inheritedStyles: "",
   type: "button",
-  primary: true,
+  primary: false,
   secondary: false,
   elementRef: undefined,
   disabled: false,

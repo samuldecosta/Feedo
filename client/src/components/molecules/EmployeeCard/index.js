@@ -1,41 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "../../atoms/Button";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { requestFeedBack } from "../../../actions/feedbacks";
 
 function EmployeeCard({
   employeeData,
   className,
-  setEmpForFeedback,
-  setUserForUpdate,
   removeEmployee,
   isStaticMode,
   employees,
   loggedInEmployee,
   requestFeedBack,
 }) {
-  const {
-    _id,
-    name,
-    email,
-    bio,
-    designation,
-    domain,
-    avatar,
-    performance,
-  } = employeeData;
+  const { _id, name, email, bio, designation, domain, avatar } = employeeData;
   return (
-    <div
+    <Link
       className={`card promoting-card employee-card ${className}`}
-      onClick={(e) => {
-        e.stopPropagation();
-        if (!isStaticMode) {
-          setEmpForFeedback(_id);
-          return <Redirect to="/feedback" />;
-        }
-      }}
+      to={`/feedback/${_id}`}
       key={`emp-${_id}`}
     >
       <div className="card-body d-flex flex-row">
@@ -107,16 +89,10 @@ function EmployeeCard({
           ></i>
           {!isStaticMode && (
             <div className="action-buttons">
-              <Button
-                className="btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setUserForUpdate(_id);
-                }}
-              >
+              <Link className="btn" to={`/feedback/${_id}`}>
                 Edit Info
-              </Button>
-              <Button
+              </Link>
+              <button
                 className="btn"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -124,19 +100,17 @@ function EmployeeCard({
                 }}
               >
                 Remove Employee
-              </Button>
+              </button>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
 EmployeeCard.propTypes = {
   employeeData: PropTypes.object.isRequired,
-  setEmpForFeedback: PropTypes.func,
-  setUserForUpdate: PropTypes.func,
   removeEmployee: PropTypes.func,
   isStaticMode: PropTypes.bool,
   requestFeedBack: PropTypes.func.isRequired,
@@ -145,8 +119,6 @@ EmployeeCard.propTypes = {
 };
 
 EmployeeCard.defaultProps = {
-  setEmpForFeedback: () => {},
-  setUserForUpdate: () => {},
   removeEmployee: () => {},
   isStaticMode: true,
 };

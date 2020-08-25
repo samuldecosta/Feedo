@@ -7,6 +7,7 @@ import {
   SET_FEEDBACK_EMP_ID,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { host } from "../config";
 
 // fetch all Employees List
 export const getEmployeesList = () => async (dispatch) => {
@@ -14,7 +15,7 @@ export const getEmployeesList = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get("api/employees");
+    const res = await axios.get(`${host}api/employees`);
     dispatch({
       type: SAVE_EMP_LIST,
       payload: res.data.employees,
@@ -65,7 +66,7 @@ export const updateEmployee = ({
     revokeAdminRight,
   };
   try {
-    const res = await axios.post("api/employees/update", body);
+    const res = await axios.post(`${host}api/employees/update`, body);
     dispatch({
       type: SET_UPDATE_EMP_DATA,
       payload: res.data,
@@ -92,7 +93,7 @@ export const removeEmployee = (employeeId) => async (dispatch) => {
   try {
     const res = await axios({
       method: "DELETE",
-      url: "api/employees",
+      url: `${host}api/employees`,
       data: body,
       headers: { "Content-Type": "application/json" },
     });

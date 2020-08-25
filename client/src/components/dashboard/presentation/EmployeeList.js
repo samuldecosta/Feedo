@@ -1,11 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import Image from "../../atoms/Image";
 import withStyles from "../../../lib/withStyles";
 import styles from "./EmployeeList.style";
-import Button from "../../atoms/Button";
 import {
   removeEmployee,
   setUserForUpdate,
@@ -22,14 +19,6 @@ function EmployeeList({
   setEmpForFeedback,
   feedbackForEmp,
 }) {
-  //redirect if have updateEmpId
-  if (updateEmpId) {
-    return <Redirect to="/update" />;
-  }
-  //redirect if have updateEmpId
-  if (feedbackForEmp && feedbackForEmp._id) {
-    return <Redirect to="/feedback" />;
-  }
   return (
     <div className={className}>
       {employees.map((employee) => {

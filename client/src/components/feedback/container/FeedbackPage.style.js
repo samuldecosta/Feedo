@@ -12,6 +12,10 @@ const EmployeeListStyles = css`
     & img {
       max-width: 120px;
     }
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
   }
   .feedback-form {
     position: relative;

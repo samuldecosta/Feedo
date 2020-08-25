@@ -15,6 +15,7 @@ const EmployeeListStyles = css`
     transition-duration: 0.2s;
     &:hover {
       cursor: pointer;
+      text-decoration: none;
     }
   }
   .emp-name {

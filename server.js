@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db");
+var cors = require("cors");
 const app = express();
 
 // connect data base
@@ -7,6 +8,8 @@ connectDB();
 
 //init Middleware
 app.use(express.json({ extended: false }));
+app.use(cors());
+
 //Define Routes
 app.get("/", (req, res) => res.send("API Running"));
 
