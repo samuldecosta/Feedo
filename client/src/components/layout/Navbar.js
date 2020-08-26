@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
+import logo from "../../img/logo.png";
 
 const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
   const authLink = (
@@ -10,17 +11,21 @@ const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
       {employee && employee.isAdmin && (
         <Fragment>
           <li>
-            <Link to="/register">Add Employee</Link>
+            <Link className="font-weight-bold" to="/dashboard">
+              Dashboard
+            </Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link className="font-weight-bold" to="/register">
+              Add Employee
+            </Link>
           </li>
         </Fragment>
       )}
       <li>
         <a href="#!" onClick={logout}>
           <i className="fa fa-sign-out-alt"></i>
-          <span className="hide-sm">Logout</span>
+          <span className="font-weight-bold">Logout</span>
         </a>
       </li>
     </Fragment>
@@ -28,7 +33,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
   const guestLink = (
     <Fragment>
       <li>
-        <Link to="/login">Login</Link>
+        <Link className="fa fa-sign-in font-weight-bold" to="/login">
+          {` Login`}
+        </Link>
       </li>
     </Fragment>
   );
@@ -36,7 +43,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
     <nav className="navbar bg-dark">
       <ul>
         <li className="root">
-          <Link to="/">Feedo</Link>
+          <Link to="/">
+            <img src={logo}></img>
+          </Link>
         </li>
         {!loading && (
           <Fragment>{isAuthenticated ? authLink : guestLink}</Fragment>

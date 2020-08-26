@@ -95,9 +95,7 @@ function EmployeeCard({
           {isStaticMode && (
             <Fragment>
               <span>Bio:</span>
-              <p className="card-text " id="collapseContent">
-                {bio}
-              </p>
+              <p id="collapseContent">{bio}</p>
             </Fragment>
           )}
           <i
