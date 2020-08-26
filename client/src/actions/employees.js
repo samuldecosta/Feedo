@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert, setLoader } from "./alert";
+import { setAlert, setLoader, setRedirect } from "./alert";
 import {
   SAVE_EMP_LIST,
   SET_UPDATE_EMP_DATA,
@@ -22,6 +22,7 @@ export const getEmployeesList = () => async (dispatch) => {
       payload: res.data.employees,
     });
     dispatch(setLoader(false));
+    dispatch(setRedirect(""));
   } catch (err) {
     const {
       data: { errors },
@@ -29,6 +30,7 @@ export const getEmployeesList = () => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
+    dispatch(setRedirect(""));
     dispatch(setLoader(false));
   }
 };
@@ -75,6 +77,7 @@ export const updateEmployee = ({
       type: SET_UPDATE_EMP_DATA,
       payload: res.data,
     });
+    dispatch(setRedirect("/dashboard"));
     dispatch(setAlert("Employee data updated", "success"));
     dispatch(setLoader(false));
   } catch (err) {

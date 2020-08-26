@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert, setLoader } from "./alert";
+import { setAlert, setLoader, setRedirect } from "./alert";
 import {
   LOGIN_FAIL,
   REGISTER_FAIL,
@@ -41,6 +41,7 @@ export const register = ({
     await axios.post(`${host}api/employees`, body, config);
     dispatch(setLoader(false));
     dispatch(setAlert(`Employee Registeration success`, "success"));
+    dispatch(setRedirect("/dashboard"));
   } catch (err) {
     const {
       data: { errors },
@@ -115,4 +116,5 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
+  dispatch(setRedirect(""));
 };

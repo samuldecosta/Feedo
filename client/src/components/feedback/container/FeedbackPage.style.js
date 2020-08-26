@@ -5,7 +5,6 @@ const EmployeeListStyles = css`
   .employee-card {
     width: 100%;
     border-bottom: 2px solid grey;
-
     & .emp-details {
       margin: 0 50px;
       & a {
@@ -29,6 +28,14 @@ const EmployeeListStyles = css`
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     & textarea {
       min-height: 100px;
+    }
+    & .submit-wrapper {
+      height: 50px;
+      width: 100%;
+      padding-top: 10px;
+      height: 50px;
+      width: 100%;
+      padding-top: 10px;
     }
     &.reviewer-name {
       font-size: 14px;

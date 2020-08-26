@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert, setLoader } from "./alert";
+import { setAlert, setLoader, setRedirect } from "./alert";
 import {
   SAVE_FEEDBACK_REQUESTS,
   SAVE_FEEDBACK_LIST,
@@ -21,6 +21,7 @@ export const getFeedbackRequests = () => async (dispatch) => {
       type: SAVE_FEEDBACK_REQUESTS,
       payload: res.data,
     });
+    dispatch(setRedirect(""));
     dispatch(setLoader(false));
   } catch (err) {
     const response = err.response;
@@ -30,6 +31,7 @@ export const getFeedbackRequests = () => async (dispatch) => {
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setRedirect(""));
     dispatch(setLoader(false));
   }
 };
@@ -112,10 +114,16 @@ export const submitFeedback = (
         type: SAVE_FEEDBACK_LIST,
         payload: res.data,
       });
+      if (reqId) {
+        dispatch(setRedirect("/dashboard"));
+      }
       dispatch(setLoader(false));
       return dispatch(setAlert(`Feedback submited`, "success"));
     }
     dispatch(setLoader(false));
+    if (reqId) {
+      dispatch(setRedirect("/dashboard"));
+    }
     return dispatch(
       setAlert(`Something went wrong!! please try later`, "danger")
     );

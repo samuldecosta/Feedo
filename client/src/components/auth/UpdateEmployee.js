@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 const UpdateEmployee = ({
   employeesList,
   updateEmployeeReducer,
+  redirectTo,
   match: {
     params: { empId: updateEmpId },
   },
@@ -50,6 +51,7 @@ const UpdateEmployee = ({
   }, []);
   return (
     <Fragment>
+      {redirectTo && <Redirect to={redirectTo} />}
       <h1 className="large">Update Employee</h1>
       <p className="lead">
         All the below mentioned fields are required and can't be empty.
@@ -132,6 +134,7 @@ UpdateEmployee.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   employeesList: state.employees.employeesList,
+  redirectTo: state.alert.redirectTo,
 });
 
 export default connect(mapStateToProps, { setAlert, updateEmployeeReducer })(

@@ -22,6 +22,9 @@ const EmployeeListStyles = css`
       & a {
         font-size: 15px;
       }
+      & p {
+        font-size: 12px;
+      }
     }
   }
   .emp-name {

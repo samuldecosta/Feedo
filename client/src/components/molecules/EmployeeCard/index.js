@@ -37,16 +37,16 @@ function EmployeeCard({
             {name}
           </Link>
           <p className="card-text">
-            <i className="far fa-handshake-o pr-2"></i>
-            {designation}
+            <i className="fa fa-podcast"></i>
+            {` ${designation}`}
           </p>
           <p className="card-text">
-            <i className="far  fa-envelope pr-2"></i>
+            <i className="fa  fa-envelope pr-2"></i>
             {email}
           </p>
           <p className="card-text">
-            <i className="far  fa-podcast pr-2"></i>
-            {domain}
+            <i className="far   fa-address-card"></i>
+            {` ${domain}`}
           </p>
         </div>
         {isStaticMode && isAdmin && (

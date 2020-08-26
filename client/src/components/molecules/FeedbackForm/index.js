@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { setAlert } from "../../../actions/alert";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 function FeedbackForm({
   className,
@@ -13,6 +14,7 @@ function FeedbackForm({
   employeeId,
   submitButtonText,
   feedbackRequestId,
+  redirectTo,
 }) {
   const {
     summary: storedSummary = "",
@@ -38,58 +40,59 @@ function FeedbackForm({
       } else {
         setFormData({ ...formData, summary: "" });
       }
-      if (feedbackRequestId) {
-        console.log("lele", feedbackRequestId);
-        return <Redirect to="/dashboard" />;
-      }
     } else {
       setAlert("Summary can not be blank", "danger");
     }
   };
 
   return (
-    <div className={`feedback-form ${className}`}>
-      <form className="form" onSubmit={onSubmit}>
-        {isEditMode ? (
-          <Fragment>
-            <textarea
-              className="feedback-summary-input "
-              value={summary}
-              onChange={onChange}
-              maxLength={maxLength}
-              placeholder={placeholder}
-            />
-            <input
-              type="submit"
-              className="btn pull-right"
-              value={submitButtonText}
-            />
-          </Fragment>
-        ) : (
-          <div className="summary-section">
-            <p className="reviewer-name b">
-              <span className="name">Reviewed by: {reviewerName}</span>
-              <span className="user-date"> On ({date})</span>
-            </p>
-            <p className="message">{summary}</p>
-            {summary && (
-              <div className="pull-right">
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={() => removeFeedback(_id)}
-                >
-                  remove
-                </button>
-                <button type="button" className="btn" onClick={editFeedback}>
-                  update feedback
-                </button>
+    <Fragment>
+      {redirectTo && <Redirect to={redirectTo} />}
+      <div className={`feedback-form ${className}`}>
+        <form className="form" onSubmit={onSubmit}>
+          {isEditMode ? (
+            <Fragment>
+              <textarea
+                className="feedback-summary-input "
+                value={summary}
+                onChange={onChange}
+                maxLength={maxLength}
+                placeholder={placeholder}
+              />
+              <div className="submit-wrapper">
+                <input
+                  type="submit"
+                  className="btn pull-right"
+                  value={submitButtonText}
+                />
               </div>
-            )}
-          </div>
-        )}
-      </form>
-    </div>
+            </Fragment>
+          ) : (
+            <div className="summary-section">
+              <p className="reviewer-name b">
+                <span className="name">Reviewed by: {reviewerName}</span>
+                <span className="user-date"> On ({date})</span>
+              </p>
+              <p className="message">{summary}</p>
+              {summary && (
+                <div className="pull-right">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => removeFeedback(_id)}
+                  >
+                    remove
+                  </button>
+                  <button type="button" className="btn" onClick={editFeedback}>
+                    update feedback
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </form>
+      </div>
+    </Fragment>
   );
 }
 
@@ -114,5 +117,7 @@ FeedbackForm.defaultProps = {
   removeFeedback: () => {},
   feedbackRequestId: "",
 };
-
-export default FeedbackForm;
+const mapStateToProps = (state) => ({
+  redirectTo: state.alert.redirectTo,
+});
+export default connect(mapStateToProps)(FeedbackForm);

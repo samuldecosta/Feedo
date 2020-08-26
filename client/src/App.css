@@ -80,6 +80,10 @@ body {
   border: 1px solid #ccc;
 }
 
+.form .form-group {
+  margin: 15px 0;
+}
+
 .active-loader {
   top: 0;
   left: 0;

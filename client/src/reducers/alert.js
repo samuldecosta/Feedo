@@ -1,6 +1,11 @@
-import { SET_ALERT, REMOVE_ALERT, SET_LOADER } from "../actions/types";
+import {
+  SET_ALERT,
+  REMOVE_ALERT,
+  SET_LOADER,
+  SET_REDIRECT,
+} from "../actions/types";
 
-const initialState = { alertList: [], loader: true };
+const initialState = { alertList: [], loader: true, redirectTo: "" };
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
@@ -13,6 +18,8 @@ export default function (state = initialState, action) {
       };
     case SET_LOADER:
       return { ...state, loader: payload };
+    case SET_REDIRECT:
+      return { ...state, redirectTo: payload };
     default:
       return state;
   }
