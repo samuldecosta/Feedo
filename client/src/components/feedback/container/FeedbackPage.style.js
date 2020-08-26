@@ -8,6 +8,9 @@ const EmployeeListStyles = css`
 
     & .emp-details {
       margin: 0 50px;
+      & a {
+        font-size: 15px;
+      }
     }
     & img {
       max-width: 100px;

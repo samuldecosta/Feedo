@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { setAlert, setLoader } from "./alert";
 import {
   SAVE_FEEDBACK_REQUESTS,
   SAVE_FEEDBACK_LIST,
@@ -15,11 +15,13 @@ export const getFeedbackRequests = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
+    dispatch(setLoader(true));
     const res = await axios.get(`${host}api/feedbackrequests`);
     dispatch({
       type: SAVE_FEEDBACK_REQUESTS,
       payload: res.data,
     });
+    dispatch(setLoader(false));
   } catch (err) {
     const response = err.response;
     if (response && response.errors) {
@@ -28,6 +30,7 @@ export const getFeedbackRequests = () => async (dispatch) => {
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setLoader(false));
   }
 };
 
@@ -40,10 +43,12 @@ export const requestFeedBack = ({ reqby, reqfrom, reqfor }) => async (
   }
   const body = JSON.stringify({ reqby, reqfrom, reqfor });
   try {
+    dispatch(setLoader(true));
     const res = await axios.post(`${host}api/feedbackrequests`, body);
     if (res.data.success) {
       dispatch(setAlert("Feedback request generated", "success"));
     }
+    dispatch(setLoader(false));
   } catch (err) {
     const response = err.response;
     if (response && response.errors) {
@@ -52,6 +57,7 @@ export const requestFeedBack = ({ reqby, reqfrom, reqfor }) => async (
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setLoader(false));
   }
 };
 
@@ -61,11 +67,13 @@ export const getFeedbackList = (empId) => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
+    dispatch(setLoader(true));
     const res = await axios.get(`${host}api/feedback/${empId}`);
     dispatch({
       type: SAVE_FEEDBACK_LIST,
       payload: res.data,
     });
+    dispatch(setLoader(false));
   } catch (err) {
     const response = err.response;
     if (response && response.errors) {
@@ -74,6 +82,7 @@ export const getFeedbackList = (empId) => async (dispatch) => {
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setLoader(false));
   }
 };
 
@@ -96,14 +105,17 @@ export const submitFeedback = (
     overAllPerformance,
   });
   try {
+    dispatch(setLoader(true));
     const res = await axios.post(`${host}api/feedback`, body);
     if (res.data.success) {
       dispatch({
         type: SAVE_FEEDBACK_LIST,
         payload: res.data,
       });
+      dispatch(setLoader(false));
       return dispatch(setAlert(`Feedback submited`, "success"));
     }
+    dispatch(setLoader(false));
     return dispatch(
       setAlert(`Something went wrong!! please try later`, "danger")
     );
@@ -115,6 +127,7 @@ export const submitFeedback = (
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setLoader(false));
   }
 };
 // remove  feedback
@@ -126,6 +139,7 @@ export const removeFeedback = (id) => async (dispatch) => {
     id,
   });
   try {
+    dispatch(setLoader(true));
     const res = await axios({
       method: "DELETE",
       url: `${host}api/feedback`,
@@ -137,8 +151,12 @@ export const removeFeedback = (id) => async (dispatch) => {
         type: REMOVE_FEEDBACK,
         payload: id,
       });
+      dispatch(setLoader(false));
       return dispatch(setAlert(`Feedback removed`, "success"));
-    } else return dispatch(setAlert(`Feedback Not removed`, "danger"));
+    } else {
+      dispatch(setLoader(false));
+      return dispatch(setAlert(`Feedback Not removed`, "danger"));
+    }
   } catch (err) {
     const response = err.response;
     if (response && response.errors) {
@@ -147,6 +165,7 @@ export const removeFeedback = (id) => async (dispatch) => {
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setLoader(false));
   }
 };
 
@@ -161,14 +180,17 @@ export const rejectReview = (rejectionReason, reqId) => async (dispatch) => {
     rejectionReason,
   });
   try {
+    dispatch(setLoader(true));
     const res = await axios.post(`${host}api/feedbackrequests/reject`, body);
     if (res.data.success) {
       dispatch({
         type: REMOVE_FEEDBACK_REQUEST,
         payload: reqId,
       });
+      dispatch(setLoader(false));
       return dispatch(setAlert(`Feedback request rejected`, "success"));
     }
+    dispatch(setLoader(false));
     return dispatch(
       setAlert(`Something went wrong!! please try later`, "danger")
     );
@@ -180,5 +202,6 @@ export const rejectReview = (rejectionReason, reqId) => async (dispatch) => {
     } else {
       dispatch(setAlert(err.message, "danger"));
     }
+    dispatch(setLoader(false));
   }
 };

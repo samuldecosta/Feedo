@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { setAlert, setLoader } from "./alert";
 import {
   SAVE_EMP_LIST,
   SET_UPDATE_EMP_DATA,
@@ -15,11 +15,13 @@ export const getEmployeesList = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
+    dispatch(setLoader(true));
     const res = await axios.get(`${host}api/employees`);
     dispatch({
       type: SAVE_EMP_LIST,
       payload: res.data.employees,
     });
+    dispatch(setLoader(false));
   } catch (err) {
     const {
       data: { errors },
@@ -27,6 +29,7 @@ export const getEmployeesList = () => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
+    dispatch(setLoader(false));
   }
 };
 //Set UserId in redux to see feedback of that user
@@ -66,12 +69,14 @@ export const updateEmployee = ({
     revokeAdminRight,
   };
   try {
+    dispatch(setLoader(true));
     const res = await axios.post(`${host}api/employees/update`, body);
     dispatch({
       type: SET_UPDATE_EMP_DATA,
       payload: res.data,
     });
     dispatch(setAlert("Employee data updated", "success"));
+    dispatch(setLoader(false));
   } catch (err) {
     const {
       data: { errors },
@@ -79,6 +84,7 @@ export const updateEmployee = ({
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
+    dispatch(setLoader(false));
   }
 };
 
@@ -91,6 +97,7 @@ export const removeEmployee = (employeeId) => async (dispatch) => {
     employeeId,
   });
   try {
+    dispatch(setLoader(true));
     const res = await axios({
       method: "DELETE",
       url: `${host}api/employees`,
@@ -102,6 +109,7 @@ export const removeEmployee = (employeeId) => async (dispatch) => {
       payload: res.data.employees,
     });
     dispatch(setAlert(`Employee remover with id ${employeeId}`, "success"));
+    dispatch(setLoader(false));
   } catch (err) {
     const {
       data: { errors },
@@ -109,5 +117,6 @@ export const removeEmployee = (employeeId) => async (dispatch) => {
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
+    dispatch(setLoader(false));
   }
 };

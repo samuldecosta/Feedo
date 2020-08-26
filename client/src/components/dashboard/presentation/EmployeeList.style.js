@@ -5,10 +5,9 @@ const EmployeeListStyles = css`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 70px;
   .employee-card {
     padding: 10px;
-    width: 45%;
+    width: 32%;
     min-height: 50px;
     margin-bottom: 15px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 4px 0 rgba(0, 0, 0, 0.24);
@@ -17,6 +16,12 @@ const EmployeeListStyles = css`
     &:hover {
       cursor: pointer;
       text-decoration: none;
+    }
+    & .emp-details {
+      margin: 0 35px;
+      & a {
+        font-size: 15px;
+      }
     }
   }
   .emp-name {

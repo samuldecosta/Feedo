@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { setAlert, setLoader } from "./alert";
 import {
   LOGIN_FAIL,
   REGISTER_FAIL,
@@ -37,7 +37,9 @@ export const register = ({
     domain,
   });
   try {
+    dispatch(setLoader(true));
     await axios.post(`${host}api/employees`, body, config);
+    dispatch(setLoader(false));
     dispatch(setAlert(`Employee Registeration success`, "success"));
   } catch (err) {
     const {
@@ -49,6 +51,7 @@ export const register = ({
     dispatch({
       type: REGISTER_FAIL,
     });
+    dispatch(setLoader(false));
   }
 };
 
@@ -58,15 +61,18 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
+    dispatch(setLoader(true));
     const res = await axios.get(`${host}api/auth`);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
+    dispatch(setLoader(false));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
     });
+    dispatch(setLoader(false));
   }
 };
 
@@ -82,12 +88,14 @@ export const login = (email, password) => async (dispatch) => {
     email,
   });
   try {
+    dispatch(setLoader(true));
     const res = await axios.post(`${host}api/auth`, body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    loadUser();
+    dispatch(loadUser());
+    dispatch(setLoader(false));
   } catch (err) {
     const {
       data: { errors },
@@ -98,6 +106,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: LOGIN_FAIL,
     });
+    dispatch(setLoader(false));
   }
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -67,7 +67,11 @@ function EmployeeCard({
               {employees.map((emp) => (
                 <li
                   key={emp._id}
-                  className={emp._id === loggedInEmployee ? "disabled" : ""}
+                  className={
+                    emp._id === loggedInEmployee || emp._id === _id
+                      ? "disabled"
+                      : ""
+                  }
                   onClick={(e) => {
                     e.stopPropagation();
                     requestFeedBack({
@@ -88,10 +92,14 @@ function EmployeeCard({
       </div>
       <div className="card-body">
         <div className="collapse-content">
-          <span>Bio:</span>
-          <p className="card-text " id="collapseContent">
-            {bio}
-          </p>
+          {isStaticMode && (
+            <Fragment>
+              <span>Bio:</span>
+              <p className="card-text " id="collapseContent">
+                {bio}
+              </p>
+            </Fragment>
+          )}
           <i
             className="fas fa-share-alt text-muted float-right p-1 my-1"
             data-toggle="tooltip"
