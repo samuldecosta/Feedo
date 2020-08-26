@@ -8,7 +8,9 @@ import { Redirect } from "react-router-dom";
 const UpdateEmployee = ({
   employeesList,
   updateEmployeeReducer,
-  updateEmpId,
+  match: {
+    params: { empId: updateEmpId },
+  },
 }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -48,7 +50,10 @@ const UpdateEmployee = ({
   }, []);
   return (
     <Fragment>
-      <h1 className="large text-primary">Update Employee</h1>
+      <h1 className="large">Update Employee</h1>
+      <p className="lead">
+        All the below mentioned fields are required and can't be empty.
+      </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
@@ -108,7 +113,11 @@ const UpdateEmployee = ({
           </div>
           <label htmlFor="revokeAdminRight">Remove Admin Rights</label>
         </div>
-        <input type="submit" className="btn btn-primary" value="Update" />
+        <input
+          type="submit"
+          className="btn form-group"
+          value="Update Information"
+        />
       </form>
     </Fragment>
   );
@@ -118,13 +127,11 @@ UpdateEmployee.propTypes = {
   setAlert: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   updateEmployeeReducer: PropTypes.func.isRequired,
-  updateEmpId: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   employeesList: state.employees.employeesList,
-  updateEmpId: state.employees.updateEmpId,
 });
 
 export default connect(mapStateToProps, { setAlert, updateEmployeeReducer })(

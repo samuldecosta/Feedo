@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { setAlert } from "../../../actions/alert";
+import { Redirect } from "react-router-dom";
 
 function FeedbackForm({
   className,
@@ -10,6 +11,8 @@ function FeedbackForm({
   submitFeedback,
   removeFeedback,
   employeeId,
+  submitButtonText,
+  feedbackRequestId,
 }) {
   const {
     summary: storedSummary = "",
@@ -29,11 +32,15 @@ function FeedbackForm({
   const onSubmit = (e) => {
     e.preventDefault();
     if (summary) {
-      submitFeedback(summary, employeeId, _id);
+      submitFeedback(summary, employeeId, _id, feedbackRequestId);
       if (_id) {
         setFormData({ ...formData, isEditMode: false });
       } else {
         setFormData({ ...formData, summary: "" });
+      }
+      if (feedbackRequestId) {
+        console.log("lele", feedbackRequestId);
+        return <Redirect to="/dashboard" />;
       }
     } else {
       setAlert("Summary can not be blank", "danger");
@@ -52,13 +59,17 @@ function FeedbackForm({
               maxLength={maxLength}
               placeholder={placeholder}
             />
-            <input type="submit" className="btn pull-right" value="Submit" />
+            <input
+              type="submit"
+              className="btn pull-right"
+              value={submitButtonText}
+            />
           </Fragment>
         ) : (
           <div className="summary-section">
             <p className="reviewer-name b">
-              <span className="name">{reviewerName}</span>
-              <span className="user-date">{date}</span>
+              <span className="name">Reviewed by: {reviewerName}</span>
+              <span className="user-date"> On ({date})</span>
             </p>
             <p className="message">{summary}</p>
             {summary && (
@@ -87,8 +98,10 @@ FeedbackForm.propTypes = {
   submitFeedback: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   storedFeedback: PropTypes.object,
-  removeFeedback: PropTypes.func.isRequired,
+  removeFeedback: PropTypes.func,
   employeeId: PropTypes.string.isRequired,
+  submitButtonText: PropTypes.string,
+  feedbackRequestId: PropTypes.string,
 };
 
 FeedbackForm.defaultProps = {
@@ -97,6 +110,9 @@ FeedbackForm.defaultProps = {
   storedFeedback: {
     summary: "",
   },
+  submitButtonText: "submit",
+  removeFeedback: () => {},
+  feedbackRequestId: "",
 };
 
 export default FeedbackForm;

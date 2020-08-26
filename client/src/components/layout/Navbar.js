@@ -47,10 +47,13 @@ const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
 };
 
 Navbar.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
   logout: PropTypes.func.isRequired,
 };
 
+Navbar.defaultProps = {
+  isAuthenticated: false,
+};
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });

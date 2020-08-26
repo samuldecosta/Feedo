@@ -12,10 +12,11 @@ function EmployeeCard({
   employees,
   loggedInEmployee,
   requestFeedBack,
+  isAdmin,
 }) {
   const { _id, name, email, bio, designation, domain, avatar } = employeeData;
   return (
-    <Link
+    <div
       className={`card promoting-card employee-card ${className}`}
       to={`/feedback/${_id}`}
       key={`emp-${_id}`}
@@ -29,7 +30,12 @@ function EmployeeCard({
           alt="avatar"
         />
         <div className="emp-details">
-          <h4 className="card-title font-weight-bold mb-2">{name}</h4>
+          <Link
+            to={`/feedback/${_id}`}
+            className="card-title font-weight-bold mb-2"
+          >
+            {name}
+          </Link>
           <p className="card-text">
             <i className="far fa-handshake-o pr-2"></i>
             {designation}
@@ -43,8 +49,12 @@ function EmployeeCard({
             {domain}
           </p>
         </div>
-        {isStaticMode && (
+        {isStaticMode && isAdmin && (
           <div className="request-review dropdown">
+            <p className="blockquote">
+              Please select employee to raise Feedback request for{" "}
+              <spam className="font-weight-bold">{name}</spam>
+            </p>
             <button
               className="btn dropdown-toggle"
               type="button"
@@ -56,6 +66,7 @@ function EmployeeCard({
             <ul className="dropdown-menu">
               {employees.map((emp) => (
                 <li
+                  key={emp._id}
                   className={emp._id === loggedInEmployee ? "disabled" : ""}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -89,7 +100,7 @@ function EmployeeCard({
           ></i>
           {!isStaticMode && (
             <div className="action-buttons">
-              <Link className="btn" to={`/feedback/${_id}`}>
+              <Link className="btn" to={`/update/${_id}`}>
                 Edit Info
               </Link>
               <button
@@ -105,7 +116,7 @@ function EmployeeCard({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -116,11 +127,13 @@ EmployeeCard.propTypes = {
   requestFeedBack: PropTypes.func.isRequired,
   employees: PropTypes.array,
   loggedInEmployee: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool,
 };
 
 EmployeeCard.defaultProps = {
   removeEmployee: () => {},
   isStaticMode: true,
+  isAdmin: false,
 };
 const mapStateToProps = (state) => ({
   employees: state.employees.employeesList,

@@ -4,6 +4,7 @@ import {
   SAVE_FEEDBACK_REQUESTS,
   SAVE_FEEDBACK_LIST,
   REMOVE_FEEDBACK,
+  REMOVE_FEEDBACK_REQUEST,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 import { host } from "../config";
@@ -96,10 +97,16 @@ export const submitFeedback = (
   });
   try {
     const res = await axios.post(`${host}api/feedback`, body);
-    dispatch({
-      type: SAVE_FEEDBACK_LIST,
-      payload: res.data,
-    });
+    if (res.data.success) {
+      dispatch({
+        type: SAVE_FEEDBACK_LIST,
+        payload: res.data,
+      });
+      return dispatch(setAlert(`Feedback submited`, "success"));
+    }
+    return dispatch(
+      setAlert(`Something went wrong!! please try later`, "danger")
+    );
   } catch (err) {
     const response = err.response;
     if (response && response.errors) {
@@ -118,7 +125,6 @@ export const removeFeedback = (id) => async (dispatch) => {
   const body = JSON.stringify({
     id,
   });
-  console.log(id);
   try {
     const res = await axios({
       method: "DELETE",
@@ -133,6 +139,39 @@ export const removeFeedback = (id) => async (dispatch) => {
       });
       return dispatch(setAlert(`Feedback removed`, "success"));
     } else return dispatch(setAlert(`Feedback Not removed`, "danger"));
+  } catch (err) {
+    const response = err.response;
+    if (response && response.errors) {
+      const { errors = [] } = response;
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    } else {
+      dispatch(setAlert(err.message, "danger"));
+    }
+  }
+};
+
+//reject a feedback
+
+export const rejectReview = (rejectionReason, reqId) => async (dispatch) => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+  const body = JSON.stringify({
+    reqId,
+    rejectionReason,
+  });
+  try {
+    const res = await axios.post(`${host}api/feedbackrequests/reject`, body);
+    if (res.data.success) {
+      dispatch({
+        type: REMOVE_FEEDBACK_REQUEST,
+        payload: reqId,
+      });
+      return dispatch(setAlert(`Feedback request rejected`, "success"));
+    }
+    return dispatch(
+      setAlert(`Something went wrong!! please try later`, "danger")
+    );
   } catch (err) {
     const response = err.response;
     if (response && response.errors) {

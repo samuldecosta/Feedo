@@ -27,6 +27,7 @@ router.post(
         overAllPerformance = 0,
       },
     } = req;
+    console.log(req.body);
     const submitter = await Employee.findById(req.employee.id);
     const isAdmin = submitter.isAdmin;
     const modelObject = reqId
@@ -141,7 +142,7 @@ router.get("/:empId", auth, async (req, res) => {
     const submitter = await Employee.findById(req.employee.id);
     const isAdmin = submitter.isAdmin;
     if (!isAdmin) {
-      return res.status(400).json({ msg: "Not authorise to make this call" });
+      return res.json({ success: true, data: [] });
     }
     const feedbackList = await Feedback.find({ employee: req.params.empId });
     return res.json({ success: true, data: feedbackList });

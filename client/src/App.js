@@ -50,7 +50,7 @@ const App = () => {
                 />
                 <PrivateRoute
                   exact
-                  path="/feedback/:empId"
+                  path={["/feedback/:empId", "/feedback/:empId/:reqId"]}
                   component={FeedBacks}
                 />
               </Switch>

@@ -39,9 +39,8 @@ const Register = ({ setAlert, register }) => {
   };
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
       <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
+        <i className="fas fa-user"></i> Register New Employee
       </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
@@ -115,7 +114,7 @@ const Register = ({ setAlert, register }) => {
             value={password2}
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <input type="submit" className="btn form-group" value="Add Employee" />
       </form>
     </Fragment>
   );

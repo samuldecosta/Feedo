@@ -2,6 +2,7 @@ import {
   SAVE_FEEDBACK_REQUESTS,
   SAVE_FEEDBACK_LIST,
   REMOVE_FEEDBACK,
+  REMOVE_FEEDBACK_REQUEST,
 } from "../actions/types";
 
 const initialState = {
@@ -19,6 +20,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         feedbackList: state.feedbackList.filter((feed) => feed._id !== payload),
+      };
+    case REMOVE_FEEDBACK_REQUEST:
+      return {
+        ...state,
+        feedbackRequests: state.feedbackRequests.filter(
+          (req) => req._id !== payload
+        ),
       };
     default:
       return state;

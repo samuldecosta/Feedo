@@ -15,7 +15,10 @@ router.get("/", auth, async (req, res) => {
     const isAdmin = employee && employee.isAdmin;
     let openRequests;
     if (!isAdmin) {
-      openRequests = await RequestPool.find({ reqfrom: req.employee.id });
+      openRequests = await RequestPool.find({
+        reqfrom: req.employee.id,
+        completed: false,
+      });
       return res.json({ openRequests });
     }
     openRequests = await RequestPool.find();
@@ -82,7 +85,7 @@ router.post(
 //@access private
 
 router.post(
-  "/denied",
+  "/reject",
   [
     auth,
     [check("rejectionReason", "rejection reason is Required").not().isEmpty()],
@@ -107,12 +110,6 @@ router.post(
       feedbackReq.rejected = true;
       feedbackReq.completed = true;
       await feedbackReq.save();
-      const employee = await Employee.findById(req.employee.id);
-      const isAdmin = employee && employee.isAdmin;
-      if (isAdmin) {
-        const openRequests = await RequestPool.find();
-        return res.json({ success: true, data: openRequests });
-      }
       return res.json({ success: true });
     } catch (err) {
       console.error(err.message);

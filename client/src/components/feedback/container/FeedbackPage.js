@@ -10,7 +10,6 @@ import {
   removeFeedback,
 } from "../../../actions/feedbacks";
 import FeedbackForm from "../../molecules/FeedbackForm";
-import { setEmpForFeedback } from "../../../actions/employees";
 
 function FeedbackPage({
   employees,
@@ -19,8 +18,9 @@ function FeedbackPage({
   getFeedbackList,
   submitFeedback,
   removeFeedback,
+  isAdmin,
   match: {
-    params: { empId },
+    params: { empId, reqId = "" },
   },
 }) {
   useEffect(() => {
@@ -30,13 +30,17 @@ function FeedbackPage({
   return (
     <div className={`feedback-wrapper ${className}`}>
       {employee && (
-        <EmployeeCard employeeData={employee} className="static-card" />
+        <EmployeeCard
+          employeeData={employee}
+          className="static-card"
+          isAdmin={isAdmin}
+        />
       )}
       {employee && (
         <FeedbackForm
           submitFeedback={submitFeedback}
-          removeFeedback={removeFeedback}
           employeeId={empId}
+          feedbackRequestId={reqId}
         />
       )}
       {feedbackList.map((feedback) => (
@@ -52,14 +56,16 @@ function FeedbackPage({
   );
 }
 FeedbackPage.propTypes = {
-  employee: PropTypes.object.isRequired,
   className: PropTypes.string.isRequired,
   getFeedbackList: PropTypes.func.isRequired,
   submitFeedback: PropTypes.func.isRequired,
   removeFeedback: PropTypes.func.isRequired,
+  employees: PropTypes.array,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  isAdmin: state.auth.employee.isAdmin,
   employees: state.employees.employeesList,
   feedbackList: state.feedbacks.feedbackList,
 });

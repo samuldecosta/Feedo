@@ -5,6 +5,7 @@ const EmployeeListStyles = css`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 70px;
   .employee-card {
     padding: 10px;
     width: 45%;

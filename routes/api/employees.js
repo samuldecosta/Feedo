@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const Employee = require("../../models/Employees");
+const RequestPool = require("../../models/RequestPool");
 
 //@route  GET api/employees
 //@desc   GET all employees
@@ -15,9 +16,16 @@ router.get("/", auth, async (req, res) => {
     const employee = await Employee.findById(req.employee.id);
     const isAdmin = employee && employee.isAdmin;
     if (!isAdmin) {
-      return res
-        .status(400)
-        .json({ msg: "You have no authority to update this profile" });
+      const linkedOpenRequests = await RequestPool.find({
+        reqfrom: req.employee.id,
+        completed: false,
+      }).select("reqfor");
+      const accessibeEmployeesID = linkedOpenRequests.map((obj) => obj.reqfor);
+      const employees = await Employee.find()
+        .where("_id")
+        .in(accessibeEmployeesID)
+        .exec();
+      return res.json({ employees });
     }
     const employees = await Employee.find().select("-password");
     res.json({ employees });

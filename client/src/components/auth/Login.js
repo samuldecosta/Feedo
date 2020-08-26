@@ -28,6 +28,10 @@ const Login = ({ login, isAuthenticated }) => {
 
   return (
     <form className="form" onSubmit={onSubmit}>
+      <h1 className="display-4">Hi welcome to Feedo.</h1>
+      <p className="blockquote h5">
+        Please enter your credentials to access the portal
+      </p>
       <div className="form-group">
         <input
           type="email"
@@ -48,7 +52,7 @@ const Login = ({ login, isAuthenticated }) => {
           required
         />
       </div>
-      <input type="submit" className="btn btn-primary" value="Login" />
+      <input type="submit" className="btn form-group" value="Login" />
     </form>
   );
 };
