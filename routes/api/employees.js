@@ -139,6 +139,7 @@ router.post(
     }
     const {
       body: {
+        _id,
         name,
         email,
         designation,
@@ -150,24 +151,31 @@ router.post(
     } = req;
     try {
       //see if Employee exist
-      let employee = await Employee.findOne({ email });
+      let employee = await Employee.findById(_id);
       if (!employee) {
         return res
           .status(400)
           .json({ errors: [{ msg: "Employee Not exist" }] });
       }
+      const avatar = gravatar.url(email, {
+        s: "200",
+        r: "pg",
+        d: "mm",
+      });
+      employee.avatar = avatar;
       employee.name = name;
       employee.designation = designation;
       employee.bio = bio;
       employee.domain = domain;
+      employee.email = email;
       if (giveAdminRight) {
         employee.isAdmin = true;
       }
       if (revokeAdminRight) {
         employee.isAdmin = false;
       }
-      updatedEmployee = await Employee.findOneAndUpdate(
-        { email },
+      updatedEmployee = await Employee.findByIdAndUpdate(
+        _id,
         { $set: employee },
         { new: true }
       ).select("-password");

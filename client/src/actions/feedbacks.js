@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert, setLoader, setRedirect } from "./alert";
+import { setAlert, setLoader, setRedirect } from "./common";
 import {
   SAVE_FEEDBACK_REQUESTS,
   SAVE_FEEDBACK_LIST,

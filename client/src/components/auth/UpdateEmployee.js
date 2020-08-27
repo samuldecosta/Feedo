@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { setAlert } from "../../actions/alert";
+import { setAlert } from "../../actions/common";
 import PropTypes from "prop-types";
 import { updateEmployee } from "../../actions/employees";
 import { Redirect } from "react-router-dom";
@@ -14,6 +14,7 @@ const UpdateEmployee = ({
   },
 }) => {
   const [formData, setFormData] = useState({
+    _id: "",
     name: "",
     email: "",
     designation: "",
@@ -22,7 +23,7 @@ const UpdateEmployee = ({
     changeAdminRights: false,
   });
 
-  const { name, email, designation, bio, domain } = formData;
+  const { _id, name, email, designation, bio, domain } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,6 +36,7 @@ const UpdateEmployee = ({
       designation,
       bio,
       domain,
+      _id,
       giveAdminRight: false,
       revokeAdminRight: false,
     });
@@ -134,7 +136,7 @@ UpdateEmployee.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   employeesList: state.employees.employeesList,
-  redirectTo: state.alert.redirectTo,
+  redirectTo: state.common.redirectTo,
 });
 
 export default connect(mapStateToProps, { setAlert, updateEmployee })(

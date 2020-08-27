@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import alert from "./alert";
+import common from "./common";
 import auth from "./auth";
 import employees from "./employees";
 import feedbacks from "./feedbacks";
 import { LOGOUT, AUTH_ERROR } from "../actions/types";
 
 const appReducer = combineReducers({
-  alert,
+  common,
   auth,
   employees,
   feedbacks,

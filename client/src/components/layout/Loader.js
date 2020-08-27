@@ -15,6 +15,6 @@ Loader.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isLoading: state.alert.loader,
+  isLoading: state.common.loader,
 });
 export default connect(mapStateToProps)(Loader);

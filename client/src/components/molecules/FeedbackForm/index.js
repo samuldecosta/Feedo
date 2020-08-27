@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import { setAlert } from "../../../actions/alert";
+import { setAlert } from "../../../actions/common";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -120,6 +120,6 @@ FeedbackForm.defaultProps = {
   feedbackRequestId: "",
 };
 const mapStateToProps = (state) => ({
-  redirectTo: state.alert.redirectTo,
+  redirectTo: state.common.redirectTo,
 });
 export default connect(mapStateToProps, { setAlert })(FeedbackForm);

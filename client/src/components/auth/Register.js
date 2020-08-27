@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
+import { setAlert } from "../../actions/common";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
@@ -126,6 +126,6 @@ Register.propTypes = {
   redirectTo: PropTypes.string,
 };
 const mapStateToProps = (state) => ({
-  redirectTo: state.alert.redirectTo,
+  redirectTo: state.common.redirectTo,
 });
 export default connect(mapStateToProps, { setAlert, register })(Register);

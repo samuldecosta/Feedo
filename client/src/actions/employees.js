@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert, setLoader, setRedirect } from "./alert";
+import { setAlert, setLoader, setRedirect } from "./common";
 import {
   SAVE_EMP_LIST,
   SET_UPDATE_EMP_DATA,
@@ -50,6 +50,7 @@ export const setUserForUpdate = (id) => (dispatch) => {
 };
 // Update Employee Data
 export const updateEmployee = ({
+  _id,
   name,
   email,
   designation,
@@ -62,6 +63,7 @@ export const updateEmployee = ({
     setAuthToken(localStorage.token);
   }
   const body = {
+    _id,
     name,
     email,
     designation,
