@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logout } from "../../actions/auth";
-import logo from "../../img/logo.png";
+import { logout } from "../../../actions/auth";
+import logo from "../../../img/logo.png";
 
 const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
   const authLink = (

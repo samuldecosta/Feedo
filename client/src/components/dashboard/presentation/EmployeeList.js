@@ -8,7 +8,7 @@ import {
   setUserForUpdate,
   setEmpForFeedback,
 } from "../../../actions/employees";
-import EmployeeCard from "../../molecules/EmployeeCard";
+import EmployeeCard from "../../common/EmployeeCard";
 
 function EmployeeList({
   employees,

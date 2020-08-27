@@ -1,62 +1,47 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { setAlert } from "../../actions/common";
-import PropTypes from "prop-types";
-import { updateEmployee } from "../../actions/employees";
 import { Redirect } from "react-router-dom";
+import { setAlert } from "../../../actions/common";
+import { register } from "../../../actions/auth";
+import PropTypes from "prop-types";
 
-const UpdateEmployee = ({
-  employeesList,
-  updateEmployee,
-  redirectTo,
-  match: {
-    params: { empId: updateEmpId },
-  },
-}) => {
+const Register = ({ setAlert, register, redirectTo }) => {
   const [formData, setFormData] = useState({
-    _id: "",
     name: "",
     email: "",
     designation: "",
     bio: "",
     domain: "",
-    changeAdminRights: false,
+    password: "",
+    password2: "",
   });
 
-  const { _id, name, email, designation, bio, domain } = formData;
+  const {
+    name,
+    password,
+    email,
+    designation,
+    bio,
+    domain,
+    password2,
+  } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    updateEmployee({
-      name,
-      email,
-      designation,
-      bio,
-      domain,
-      _id,
-      giveAdminRight: false,
-      revokeAdminRight: false,
-    });
-  };
-  useEffect(() => {
-    if (updateEmpId) {
-      const selectedEmployee = employeesList.find(
-        (employee) => employee._id === updateEmpId
-      );
-      return setFormData({ ...selectedEmployee });
+    if (password !== password2) {
+      setAlert("Password not matched", "danger", 3000);
     } else {
-      return <Redirect to="/dashboard" />;
+      register({ name, password, email, designation, bio, domain });
     }
-  }, [employeesList, updateEmpId]);
+  };
   return (
     <Fragment>
       {redirectTo && <Redirect to={redirectTo} />}
-      <h1 className="large">Update Employee</h1>
       <p className="lead">
-        All the below mentioned fields are required and can't be empty.
+        <i className="fas fa-user"></i> Register New Employee
       </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
@@ -109,36 +94,38 @@ const UpdateEmployee = ({
           />
         </div>
         <div className="form-group">
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" value="" />
-              Change Admin Permissions
-            </label>
-          </div>
-          <label htmlFor="revokeAdminRight">Remove Admin Rights</label>
+          <input
+            type="password"
+            placeholder="Enter New Password"
+            name="password"
+            onChange={onChange}
+            title="Please enter a password with minimum of 8 character with at least one upper, lower case and special character"
+            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$"
+            value={password}
+          />
         </div>
-        <input
-          type="submit"
-          className="btn form-group"
-          value="Update Information"
-        />
+        <div className="form-group">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            name="password2"
+            title="Please enter a password with minimum of 8 character with at least one upper, lower case and special character"
+            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$"
+            onChange={onChange}
+            value={password2}
+          />
+        </div>
+        <input type="submit" className="btn form-group" value="Add Employee" />
       </form>
     </Fragment>
   );
 };
 
-UpdateEmployee.propTypes = {
+Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  updateEmployee: PropTypes.func.isRequired,
+  redirectTo: PropTypes.string,
 };
-
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  employeesList: state.employees.employeesList,
   redirectTo: state.common.redirectTo,
 });
-
-export default connect(mapStateToProps, { setAlert, updateEmployee })(
-  UpdateEmployee
-);
+export default connect(mapStateToProps, { setAlert, register })(Register);

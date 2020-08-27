@@ -10,7 +10,7 @@ import Dashboard from "./components/dashboard";
 import Register from "./components/auth/Register";
 import UpdateEmployee from "./components/auth/UpdateEmployee";
 import FeedBacks from "./components/feedback";
-import PrivateRoute from "./components/routing/PrivateRoute";
+import PrivateRoute from "./routing/PrivateRoute";
 import Alert from "./components/layout/Alert";
 import Loader from "./components/layout/Loader";
 //redux

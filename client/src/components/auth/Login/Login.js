@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { login } from "../../actions/auth";
 import { Redirect } from "react-router-dom";
+import { login } from "../../../actions/auth";
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      <h1 className="display-4">Hi welcome to Feedo.</h1>
+      <h1 className="display-4">Welcome to Feedo.</h1>
       <p className="blockquote h5">
         Please enter your credentials to access the portal
       </p>

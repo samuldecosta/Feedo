@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { rejectReview } from "../../../actions/feedbacks";
-import FeedbackForm from "../../molecules/FeedbackForm";
+import FeedbackForm from "../../common/FeedbackForm";
 import NoRequests from "./NoRequests";
 
 function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
@@ -28,6 +28,7 @@ function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
                   submitFeedback={rejectReview}
                   employeeId={req._id}
                   maxLength={maxLength}
+                  placeholder="Please provide reason to reject"
                   submitButtonText="Reject Request"
                 />
               </td>
