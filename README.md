@@ -29,6 +29,7 @@ Feedo is a Feedback portal to other employees where we have two different user j
 - Redux
 - Redux-Thunk
 - Express JS
+- Node JS
 - styled-component
 
 # Feedo have following key features:
