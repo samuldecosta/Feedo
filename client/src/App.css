@@ -123,9 +123,11 @@ body {
 .form input[type="email"]:focus,
 .form input[type="password"]:focus,
 .form input[type="date"]:focus,
+.form input[type="submit"]:focus,
 .form select:focus,
 .form textarea:focus {
-  outline: 1px solid #a38200de !important;
+  box-shadow: 0 0 3pt 2pt #a38200de;
+  outline: none !important;
 }
 
 .form .form-group {
