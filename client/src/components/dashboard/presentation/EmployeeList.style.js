@@ -14,6 +14,7 @@ const EmployeeListStyles = css`
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 4px 0 rgba(0, 0, 0, 0.24);
     -webkit-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    background: #ffd533c9;
     &:hover {
       cursor: pointer;
       text-decoration: none;
@@ -21,7 +22,11 @@ const EmployeeListStyles = css`
     & .emp-details {
       margin: 0 35px;
       & a {
+        color: #6c7403;
         font-size: 15px;
+      }
+      & a:hover {
+        text-decoration: none;
       }
       & p {
         font-size: 12px;

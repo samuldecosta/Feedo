@@ -8,13 +8,13 @@ import logo from "../../../img/logo.png";
 const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
   const authLink = (
     <Fragment>
+      <li>
+        <Link className="font-weight-bold" to="/dashboard">
+          Dashboard
+        </Link>
+      </li>
       {employee && employee.isAdmin && (
         <Fragment>
-          <li>
-            <Link className="font-weight-bold" to="/dashboard">
-              Dashboard
-            </Link>
-          </li>
           <li>
             <Link className="font-weight-bold" to="/register">
               Add Employee

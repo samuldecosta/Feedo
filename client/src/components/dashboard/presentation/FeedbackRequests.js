@@ -9,7 +9,7 @@ import NoRequests from "./NoRequests";
 function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
   return feedbackRequests && feedbackRequests.length > 0 ? (
     <div className="feed-req-wrapper container">
-      <table className="table table-striped">
+      <table className="table">
         <thead>
           <tr>
             <th scope="col">Requested By</th>

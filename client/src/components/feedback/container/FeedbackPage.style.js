@@ -7,6 +7,7 @@ const EmployeeListStyles = css`
     border-bottom: 2px solid grey;
     position: relative;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    background: #ffd533c9;
     & .emp-details {
       margin: 0 50px;
       & a {
@@ -22,6 +23,11 @@ const EmployeeListStyles = css`
     }
   }
 
+  & .request-review {
+    & .dropdown-menu {
+      background: #ffea98de;
+    }
+  }
   .employee-card:before,
   .employee-card:after {
     content: "";
@@ -48,8 +54,10 @@ const EmployeeListStyles = css`
     padding: 10px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     font-size: 12px;
+    background: #ffd533c9;
     & textarea {
       min-height: 100px;
+      background: #ffea98de;
     }
     & .submit-wrapper {
       height: 50px;
