@@ -85,7 +85,7 @@ router.post(
       const avatar = gravatar.url(email, {
         s: "200",
         r: "pg",
-        d: "mm",
+        d: "robohash",
       });
 
       employee = new Employee({
@@ -160,7 +160,7 @@ router.post(
       const avatar = gravatar.url(email, {
         s: "200",
         r: "pg",
-        d: "mm",
+        d: "robohash",
       });
       employee.avatar = avatar;
       employee.name = name;
