@@ -17,7 +17,7 @@ function EmployeeCard({
   const { _id, name, email, bio, designation, domain, avatar } = employeeData;
   return (
     <div
-      className={`card promoting-card employee-card ${className}`}
+      className={`card promoting-card employee-card ${className} col-lg-3 col-sm`}
       to={`/feedback/${_id}`}
       key={`emp-${_id}`}
     >

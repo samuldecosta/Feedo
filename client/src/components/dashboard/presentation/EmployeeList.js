@@ -19,7 +19,7 @@ function EmployeeList({
   activeEmployeeId,
 }) {
   return (
-    <div className={className}>
+    <div className={`container ${className}`}>
       {employees.map(
         (employee) =>
           employee._id !== activeEmployeeId && (
