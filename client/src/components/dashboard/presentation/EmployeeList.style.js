@@ -20,7 +20,7 @@ const EmployeeListStyles = css`
       text-decoration: none;
     }
     & .emp-details {
-      margin: 0 35px;
+      margin-left: 35px;
       & a {
         color: #6c7403;
         font-size: 15px;

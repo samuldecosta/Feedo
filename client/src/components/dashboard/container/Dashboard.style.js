@@ -16,6 +16,8 @@ const DashboardStyles = css`
     font-size: 14px;
   }
   .feed-req-wrapper {
+    width: 100%;
+
     & .feedback-form {
       background: #ffd533c9;
       & textarea {
@@ -23,11 +25,29 @@ const DashboardStyles = css`
       }
     }
     & table {
+      display: table;
+
+      & tr {
+        & td,
+        & th {
+          text-transform: capitalize;
+          font-weight: bold;
+          color: #746100;
+        }
+
+        & .reject-feedback {
+          font-weight: normal;
+        }
+      }
       & tr:nth-child(odd) {
+        display: table-row;
+        justify-content: space-between;
         background: #ffea98de;
       }
 
       & tr:nth-child(even) {
+        display: table-row;
+        justify-content: space-between;
         background: #e5b600d6;
       }
 
@@ -41,6 +61,16 @@ const DashboardStyles = css`
         font-size: 14px;
         text-align: center;
         vertical-align: middle;
+      }
+
+      & .review-link a {
+        font-weight: bold;
+        color: #746100;
+      }
+
+      & .review-link a:hover,
+      & .review-link a:focus {
+        text-decoration: none;
       }
     }
   }

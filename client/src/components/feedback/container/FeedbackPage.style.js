@@ -8,11 +8,16 @@ const EmployeeListStyles = css`
     position: relative;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     background: #ffd533c9;
+    padding: 20px;
     & .emp-details {
       margin: 0 50px;
-      & a {
+      & a,
+      & .card-text {
         font-size: 15px;
       }
+    }
+    & .card-body {
+      font-size: 13px;
     }
     & img {
       max-width: 100px;
