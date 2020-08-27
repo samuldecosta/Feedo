@@ -53,7 +53,7 @@ function EmployeeCard({
           <div className="request-review dropdown">
             <p className="blockquote">
               Please select employee to raise Feedback request for{" "}
-              <spam className="font-weight-bold">{name}</spam>
+              <span className="font-weight-bold">{name}</span>
             </p>
             <button
               className="btn dropdown-toggle"
@@ -81,7 +81,7 @@ function EmployeeCard({
                     });
                   }}
                 >
-                  <a href="#">
+                  <a href="#!">
                     {emp.name}({emp.domain})
                   </a>
                 </li>

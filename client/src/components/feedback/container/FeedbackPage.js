@@ -25,7 +25,7 @@ function FeedbackPage({
 }) {
   useEffect(() => {
     getFeedbackList(empId);
-  }, []);
+  }, [getFeedbackList, empId]);
   const employee = employees.find((emp) => emp._id === empId);
   return (
     <div className={`feedback-wrapper ${className}`}>

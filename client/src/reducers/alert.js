@@ -5,7 +5,7 @@ import {
   SET_REDIRECT,
 } from "../actions/types";
 
-const initialState = { alertList: [], loader: true, redirectTo: "" };
+const initialState = { alertList: [], loader: false, redirectTo: "" };
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {

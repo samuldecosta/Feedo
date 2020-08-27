@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { rejectReview } from "../../../actions/feedbacks";
 import FeedbackForm from "../../molecules/FeedbackForm";
+import NoRequests from "./NoRequests";
 
 function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
-  return (
+  return feedbackRequests && feedbackRequests.length > 0 ? (
     <div className="feed-req-wrapper container">
       <table className="table table-striped">
         <thead>
@@ -41,6 +42,8 @@ function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
         </tbody>
       </table>
     </div>
+  ) : (
+    <NoRequests />
   );
 }
 

@@ -11,9 +11,32 @@ const DashboardStyles = css`
     background: white;
   }
   .sub-heading {
-    border-bottom: 2px solid ${(props) => props.theme.borderLightGrey};
+    box-shadow: 0 8px 6px -6px ${(props) => props.theme.borderLightGrey};
     padding-bottom: 10px;
     font-size: 14px;
+  }
+  .feed-req-wrapper {
+    & table {
+      & td,
+      & th {
+        font-size: 14px;
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
+  }
+  .no-records {
+    margin-top: 100px;
+    text-align: center;
+    & img {
+      width: 300px;
+    }
+    & .no-record-msg {
+      display: block;
+      font-size: 20px;
+      font-weight: 700;
+      color: #979797;
+    }
   }
 `;
 

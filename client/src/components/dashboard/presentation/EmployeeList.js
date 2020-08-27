@@ -15,24 +15,24 @@ function EmployeeList({
   className,
   removeEmployee,
   setUserForUpdate,
-  updateEmpId,
   setEmpForFeedback,
-  feedbackForEmp,
+  activeEmployeeId,
 }) {
   return (
     <div className={className}>
-      {employees.map((employee) => {
-        return (
-          <EmployeeCard
-            key={employee._id}
-            employeeData={employee}
-            isStaticMode={false}
-            setEmpForFeedback={setEmpForFeedback}
-            setUserForUpdate={setUserForUpdate}
-            removeEmployee={removeEmployee}
-          />
-        );
-      })}
+      {employees.map(
+        (employee) =>
+          employee._id !== activeEmployeeId && (
+            <EmployeeCard
+              key={employee._id}
+              employeeData={employee}
+              isStaticMode={false}
+              setEmpForFeedback={setEmpForFeedback}
+              setUserForUpdate={setUserForUpdate}
+              removeEmployee={removeEmployee}
+            />
+          )
+      )}
     </div>
   );
 }
@@ -42,14 +42,14 @@ EmployeeList.propTypes = {
   className: PropTypes.string,
   removeEmployee: PropTypes.func.isRequired,
   setUserForUpdate: PropTypes.func.isRequired,
-  updateEmpId: PropTypes.string,
-  feedbackForEmp: PropTypes.object,
   setEmpForFeedback: PropTypes.func.isRequired,
+  activeEmployeeId: PropTypes.string.isRequired,
 };
 
 const mapStateToprops = (state) => ({
   updateEmpId: state.employees.updateEmpId,
   feedbackForEmp: state.employees.feedbackForEmp,
+  activeEmployeeId: state.auth.employee._id,
 });
 export default connect(mapStateToprops, {
   removeEmployee,

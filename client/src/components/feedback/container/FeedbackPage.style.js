@@ -5,6 +5,8 @@ const EmployeeListStyles = css`
   .employee-card {
     width: 100%;
     border-bottom: 2px solid grey;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     & .emp-details {
       margin: 0 50px;
       & a {
@@ -19,33 +21,7 @@ const EmployeeListStyles = css`
       text-decoration: none;
     }
   }
-  .feedback-form {
-    position: relative;
-    min-height: 120px;
-    width: 100%;
-    margin: 30px 0;
-    padding: 10px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    & textarea {
-      min-height: 100px;
-    }
-    & .submit-wrapper {
-      height: 50px;
-      width: 100%;
-      padding-top: 10px;
-      height: 50px;
-      width: 100%;
-      padding-top: 10px;
-    }
-    &.reviewer-name {
-      font-size: 14px;
-    }
-  }
 
-  .employee-card {
-    position: relative;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  }
   .employee-card:before,
   .employee-card:after {
     content: "";
@@ -62,6 +38,32 @@ const EmployeeListStyles = css`
     right: 10px;
     left: auto;
     transform: skew(8deg) rotate(3deg);
+  }
+
+  .feedback-form {
+    position: relative;
+    min-height: 120px;
+    width: 100%;
+    margin: 30px 0;
+    padding: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    font-size: 12px;
+    & textarea {
+      min-height: 100px;
+    }
+    & .submit-wrapper {
+      height: 50px;
+      width: 100%;
+      padding-top: 10px;
+      height: 50px;
+      width: 100%;
+      padding-top: 10px;
+    }
+    & .reviewer-name {
+      color: #787777;
+      font-weight: 700;
+      font-size: 10px;
+    }
   }
 `;
 

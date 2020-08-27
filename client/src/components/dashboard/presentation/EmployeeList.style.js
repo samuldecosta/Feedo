@@ -4,11 +4,12 @@ import { DESKTOP, MOBILE } from "../../../theme/constants";
 const EmployeeListStyles = css`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   .employee-card {
     padding: 10px;
     width: 32%;
     min-height: 50px;
+    margin-right: 2%;
     margin-bottom: 15px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 4px 0 rgba(0, 0, 0, 0.24);
     -webkit-transition-duration: 0.2s;
@@ -27,9 +28,8 @@ const EmployeeListStyles = css`
       }
     }
   }
-  .employee-card:last-child {
-    margin-right: auto;
-    margin-left: 2%;
+  .employee-card:nth-child(3n + 0) {
+    margin-right: 0;
   }
   img {
     width: auto;

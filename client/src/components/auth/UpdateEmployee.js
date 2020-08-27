@@ -2,12 +2,12 @@ import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import PropTypes from "prop-types";
-import { updateEmployee as updateEmployeeReducer } from "../../actions/employees";
+import { updateEmployee } from "../../actions/employees";
 import { Redirect } from "react-router-dom";
 
 const UpdateEmployee = ({
   employeesList,
-  updateEmployeeReducer,
+  updateEmployee,
   redirectTo,
   match: {
     params: { empId: updateEmpId },
@@ -22,14 +22,14 @@ const UpdateEmployee = ({
     changeAdminRights: false,
   });
 
-  const { name, email, designation, bio, domain, changeAdminRights } = formData;
+  const { name, email, designation, bio, domain } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    updateEmployeeReducer({
+    updateEmployee({
       name,
       email,
       designation,
@@ -48,7 +48,7 @@ const UpdateEmployee = ({
     } else {
       return <Redirect to="/dashboard" />;
     }
-  }, []);
+  }, [employeesList, updateEmpId]);
   return (
     <Fragment>
       {redirectTo && <Redirect to={redirectTo} />}
@@ -128,7 +128,7 @@ const UpdateEmployee = ({
 UpdateEmployee.propTypes = {
   setAlert: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  updateEmployeeReducer: PropTypes.func.isRequired,
+  updateEmployee: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -137,6 +137,6 @@ const mapStateToProps = (state) => ({
   redirectTo: state.alert.redirectTo,
 });
 
-export default connect(mapStateToProps, { setAlert, updateEmployeeReducer })(
+export default connect(mapStateToProps, { setAlert, updateEmployee })(
   UpdateEmployee
 );

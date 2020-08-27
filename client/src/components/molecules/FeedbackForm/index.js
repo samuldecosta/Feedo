@@ -15,6 +15,7 @@ function FeedbackForm({
   submitButtonText,
   feedbackRequestId,
   redirectTo,
+  setAlert,
 }) {
   const {
     summary: storedSummary = "",
@@ -105,6 +106,7 @@ FeedbackForm.propTypes = {
   employeeId: PropTypes.string.isRequired,
   submitButtonText: PropTypes.string,
   feedbackRequestId: PropTypes.string,
+  setAlert: PropTypes.func.isRequired,
 };
 
 FeedbackForm.defaultProps = {
@@ -120,4 +122,4 @@ FeedbackForm.defaultProps = {
 const mapStateToProps = (state) => ({
   redirectTo: state.alert.redirectTo,
 });
-export default connect(mapStateToProps)(FeedbackForm);
+export default connect(mapStateToProps, { setAlert })(FeedbackForm);

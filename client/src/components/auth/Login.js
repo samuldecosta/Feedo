@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Input from "../atoms/Input";
-import Button from "../atoms/Button";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 import { Redirect } from "react-router-dom";

@@ -20,6 +20,11 @@ const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
               Add Employee
             </Link>
           </li>
+          <li>
+            <Link className="font-weight-bold" to={`/update/${employee._id}`}>
+              Update Profile
+            </Link>
+          </li>
         </Fragment>
       )}
       <li>
@@ -44,7 +49,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, employee }, logout }) => {
       <ul>
         <li className="root">
           <Link to="/">
-            <img src={logo}></img>
+            <img src={logo} alt="feedo-logo"></img>
           </Link>
         </li>
         {!loading && (

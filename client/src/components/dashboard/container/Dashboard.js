@@ -21,7 +21,7 @@ const Dashboard = ({
       getEmployeesList();
     }
     getFeedbackRequests();
-  }, []);
+  }, [employee, getFeedbackRequests, getEmployeesList]);
   return (
     <div className={`dashboard-wrapper ${className}`}>
       <div className="header-sticky">
@@ -32,11 +32,13 @@ const Dashboard = ({
           </p>
         ) : (
           <Fragment>
-            <p className="sub-heading">Pending feedbacks</p>
-            <FeedbackRequests feedbackRequests={feedbackRequests} />
+            <p className="sub-heading">Pending feedbacks requests</p>
           </Fragment>
         )}
       </div>
+      {employee && !employee.isAdmin && (
+        <FeedbackRequests feedbackRequests={feedbackRequests} />
+      )}
       {employee &&
         employee.isAdmin &&
         employeesList &&
