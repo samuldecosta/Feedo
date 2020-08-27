@@ -25,7 +25,6 @@ Feedo is a Feedback portal to other employees where we have two different user j
 # Major tech stack
 
 - Mongo Db
-- mobile-ready
 - React JS
 - Redux
 - Redux-Thunk
