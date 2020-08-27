@@ -7,15 +7,22 @@ const DashboardStyles = css`
     z-index: 2;
     position: fixed;
     top: 0;
-    width: 68%;
+    width: 970px;
     background: #ffd328d9;
   }
+
+  .mobile-header {
+    margin-top: 85px;
+  }
+
   .sub-heading {
     box-shadow: 0 8px 6px -6px #7c5f00;
     padding-bottom: 10px;
     font-size: 14px;
   }
   .feed-req-wrapper {
+    width: 100%;
+
     & .feedback-form {
       background: #ffd533c9;
       & textarea {
@@ -23,11 +30,29 @@ const DashboardStyles = css`
       }
     }
     & table {
+      display: table;
+
+      & tr {
+        & td,
+        & th {
+          text-transform: capitalize;
+          font-weight: bold;
+          color: #746100;
+        }
+
+        & .reject-feedback {
+          font-weight: normal;
+        }
+      }
       & tr:nth-child(odd) {
+        display: table-row;
+        justify-content: space-between;
         background: #ffea98de;
       }
 
       & tr:nth-child(even) {
+        display: table-row;
+        justify-content: space-between;
         background: #e5b600d6;
       }
 
@@ -41,6 +66,16 @@ const DashboardStyles = css`
         font-size: 14px;
         text-align: center;
         vertical-align: middle;
+      }
+
+      & .review-link a {
+        font-weight: bold;
+        color: #746100;
+      }
+
+      & .review-link a:hover,
+      & .review-link a:focus {
+        text-decoration: none;
       }
     }
   }

@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { isMobile } from "react-device-detect";
 import { getEmployeesList } from "../../../actions/employees";
 import { getFeedbackRequests } from "../../../actions/feedbacks";
 import EmployeeList from "../presentation/EmployeeList";
@@ -24,8 +25,8 @@ const Dashboard = ({
   }, [employee, getFeedbackRequests, getEmployeesList]);
   return (
     <div className={`dashboard-wrapper ${className}`}>
-      <div className="header-sticky">
-        {employee && <h1>Hello {employee.name} !!</h1>}
+      <div className={`header-sticky ${isMobile ? "mobile-header" : ""}`}>
+        {employee && !isMobile && <h1>Hello {employee.name} !!</h1>}
         {employee && employee.isAdmin ? (
           <p className="sub-heading">
             You can select any employee to view feedback history

@@ -7,7 +7,6 @@ const EmployeeListStyles = css`
   justify-content: flex-start;
   .employee-card {
     padding: 10px;
-    width: 32%;
     min-height: 50px;
     margin-right: 2%;
     margin-bottom: 15px;
@@ -20,7 +19,7 @@ const EmployeeListStyles = css`
       text-decoration: none;
     }
     & .emp-details {
-      margin: 0 35px;
+      margin-left: 35px;
       & a {
         color: #6c7403;
         font-size: 15px;

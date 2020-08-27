@@ -14,8 +14,8 @@ function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
           <tr>
             <th scope="col">Requested By</th>
             <th scope="col">Employee Name</th>
-            <th scope="col">Reject Review</th>
             <th scope="col">Review Employee</th>
+            <th scope="col">Reject Review</th>
           </tr>
         </thead>
         <tbody>
@@ -23,20 +23,21 @@ function FeedbackRequests({ feedbackRequests, rejectReview, maxLength }) {
             <tr key={req._id}>
               <th scope="row">{req.requester}</th>
               <td>{req.candidate}</td>
+              <td className="review-link">
+                <Link to={`/feedback/${req.reqfor}/${req._id}`}>
+                  <i className="far fa-hand-point-right"></i>
+                  <span className="hide-sm">Go Review</span>
+                </Link>
+              </td>
               <td>
                 <FeedbackForm
+                  className="reject-feedback"
                   submitFeedback={rejectReview}
                   employeeId={req._id}
                   maxLength={maxLength}
                   placeholder="Please provide reason to reject"
                   submitButtonText="Reject Request"
                 />
-              </td>
-              <td>
-                <Link to={`/feedback/${req.reqfor}/${req._id}`}>
-                  <i className="far fa-hand-point-right"></i>
-                  <span className="hide-sm">Go Review</span>
-                </Link>
               </td>
             </tr>
           ))}

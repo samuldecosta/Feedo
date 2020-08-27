@@ -29,14 +29,24 @@ body {
   width: 100%;
   height: 100%;
   background-size: cover;
+  display: flex;
   position: fixed;
   background: url("./img/showcase.jpg") no-repeat center center fixed;
 }
 .main-section {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 80vh;
   margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 970px;
 }
+
+.main-section::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -90,6 +100,40 @@ body {
 
 .navbar .welcome span {
   margin-right: 0.6rem;
+}
+
+.mobile-nav {
+  height: auto;
+  width: 100%;
+  max-width: none;
+  opacity: 1;
+}
+.mobile-nav .mobile-nav-action-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.mobile-nav .toggel-btn {
+  margin-left: auto;
+  color: white;
+  background-color: transparent;
+}
+
+.mobile-nav .toggel-btn:focus,
+.mobile-nav .toggel-btn:hover {
+  border: none;
+  outline: none;
+}
+
+.mobile-nav .feedo-root img {
+  width: 60px;
+}
+.mobile-nav .show {
+  height: 100%;
+  text-align: center;
+}
+.mobile-nav .hide {
+  display: none;
 }
 
 .form input[type="text"],
