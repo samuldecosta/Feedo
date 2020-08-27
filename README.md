@@ -1,4 +1,12 @@
-# PAYPAY_MEREN_ASSIGNMENT
+# Feedo : MERN_ASSIGNMENT
+
+High level technical overview
+M - Mongo Db
+E - Express Js
+R - React Js
+N - Node Js
+
+Live Demo : https://arcane-sierra-17516.herokuapp.com/
 
 ### Environment Setup
 
