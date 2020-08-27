@@ -7,7 +7,7 @@ const DashboardStyles = css`
     z-index: 2;
     position: fixed;
     top: 0;
-    width: 68%;
+    width: 970px;
     background: #ffd328d9;
   }
   .sub-heading {

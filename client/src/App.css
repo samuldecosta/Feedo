@@ -37,7 +37,14 @@ body {
   overflow-y: auto;
   max-height: 80vh;
   margin-top: 120px;
+  max-width: 970px;
 }
+
+.main-section::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 /* Navbar */
 .navbar {
   display: flex;

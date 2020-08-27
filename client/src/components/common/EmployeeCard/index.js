@@ -107,7 +107,7 @@ function EmployeeCard({
           {!isStaticMode && (
             <div className="action-buttons">
               <Link className="btn" to={`/update/${_id}`}>
-                Edit Info
+                Edit
               </Link>
               <button
                 className="btn"
@@ -116,7 +116,7 @@ function EmployeeCard({
                   removeEmployee(_id);
                 }}
               >
-                Remove Employee
+                Remove
               </button>
             </div>
           )}
