@@ -18,6 +18,7 @@ const EmployeeListStyles = css`
     }
     & .card-body {
       font-size: 13px;
+      flex-wrap: wrap;
     }
     & img {
       max-width: 100px;

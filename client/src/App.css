@@ -102,6 +102,40 @@ body {
   margin-right: 0.6rem;
 }
 
+.mobile-nav {
+  height: auto;
+  width: 100%;
+  max-width: none;
+  opacity: 1;
+}
+.mobile-nav .mobile-nav-action-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.mobile-nav .toggel-btn {
+  margin-left: auto;
+  color: white;
+  background-color: transparent;
+}
+
+.mobile-nav .toggel-btn:focus,
+.mobile-nav .toggel-btn:hover {
+  border: none;
+  outline: none;
+}
+
+.mobile-nav .feedo-root img {
+  width: 60px;
+}
+.mobile-nav .show {
+  height: 100%;
+  text-align: center;
+}
+.mobile-nav .hide {
+  display: none;
+}
+
 .form input[type="text"],
 .form input[type="email"],
 .form input[type="password"],

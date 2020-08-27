@@ -10,6 +10,11 @@ const DashboardStyles = css`
     width: 970px;
     background: #ffd328d9;
   }
+
+  .mobile-header {
+    margin-top: 85px;
+  }
+
   .sub-heading {
     box-shadow: 0 8px 6px -6px #7c5f00;
     padding-bottom: 10px;
