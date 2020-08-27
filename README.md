@@ -1,47 +1,64 @@
-# Feedo : MERN_ASSIGNMENT
+# Feedo
 
-High level technical overview
-M - Mongo Db
-E - Express Js
-R - React Js
-N - Node Js
+Feedo is a Feedback portal to other employees where we have two different user journey.
 
-Live Demo : https://arcane-sierra-17516.herokuapp.com/
+# Live Demo : https://arcane-sierra-17516.herokuapp.com/
 
-### Environment Setup
+# 1. Admin Journey:
 
-System Prerequisite :
-Your system should have latest version of Node JS and Git Client to clone and run the project.
+1. User Login
+2. Dashboard: Admin can view and manage all employees here.
+   a. Update Employee information.
+   b. Remove Employee.
+3. Feedback Page
+   a. Give feedback to employee
+   b. Request other employee to submit feedbsack for selected employee
+4. Update profile
 
-Node download Url - https://nodejs.org/en/download/
+# 2. Non Admin Employee Journey
 
-After your node is all set, clone the repo and install all dependencies by running following command in your project root directory
+1. Dashboard: View all open feedback requests
+   a. Reject review
+   b. Go to review page
+2. Feedback Submit page
 
+# Major tech stack
+
+- Mongo Db
+- mobile-ready
+- React JS
+- Redux
+- Redux-Thunk
+- Express JS
+- styled-component
+
+# Feedo have following key features:
+
+- Session management (JWT TOKEN)
+- Single page application
+- Server-side Validations
+- Global alert system throughout the app
+- Private routing
+- Mobile friendly
+- Theme object availabel throughout all component
+
+### Installation
+
+Feedo requires [Node.js](https://nodejs.org/) to run.
+
+Install the dependencies and devDependencies and start the server.
+
+```sh
+$ npm run add:dependencies
+$ node dev
 ```
-yarn add:dependencies
-```
 
-OR
+### Todos
 
-```
-npm run add:dependencies
+- Write Tests
+- Theme selector
+- moving static data to some CMS
 
-```
+## License
 
-Once we are done with installing all the dependencies we can start the application in DEV mode
-
-## Running Application in Development mode
-
-Start DEV server :- Dev server will run two server one for client(Port: 3000) one is for server(Port: 5000).
-
-```
-yarn dev
-```
-
-OR
-
-```
-npm run dev
-```
-
-After running the above command your server must be up and running.
+MIT
